@@ -1,13 +1,13 @@
-package com.example.cst338_brivera_hw03_gymlog.Database;
+package com.example.cst338_brivera_hw03_gymlog.database;
 
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
-import com.example.cst338_brivera_hw03_gymlog.Database.entities.GymLog;
+import com.example.cst338_brivera_hw03_gymlog.database.entities.GymLog;
 
-import java.util.ArrayList;
+import java.util.List;
 
 @Dao
 public interface GymLogDAO {
@@ -15,5 +15,5 @@ public interface GymLogDAO {
     void insert(GymLog gymlog);
 
     @Query("SELECT * FROM " + GymLogDatabase.GYM_LOG_TABLE)
-    ArrayList<GymLog> getAllRecords();
+    List<GymLog> getAllRecords();
 }
