@@ -6,12 +6,16 @@ import android.util.Log;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.cst338_brivera_hw03_gymlog.database.GymLogRepository;
+import com.example.cst338_brivera_hw03_gymlog.database.entities.GymLog;
 import com.example.cst338_brivera_hw03_gymlog.databinding.ActivityMainBinding;
 import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
 
-    ActivityMainBinding binding;
+    private ActivityMainBinding binding;
+    private GymLogRepository repository;
     public static final String TAG = "BR_GYMLOG" ;
     String mExercise = "";
     double mWeight = 0.0;
@@ -23,6 +27,8 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        repository = GymLogRepository.getRepository(getApplication());
+
         // Sets scrolling movement for log
         binding.logDisplayTextView.setMovementMethod(new ScrollingMovementMethod());
 
@@ -31,17 +37,25 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 getInformationFromDisplay();
+                insertGymLogRecord();
                 updateDisplay();
             }
         });
     }
 
+    private void insertGymLogRecord() {
+        GymLog log = new GymLog(mExercise, mWeight, mReps);
+        repository.insertGymLog(log);
+    }
+
     // Updates the log displayed
     private void updateDisplay() {
         String currentInfo = binding.logDisplayTextView.getText().toString();
+        Log.d(TAG, "current info: "+currentInfo);
         String newDisplay = String.format(Locale.ENGLISH,"Exercise:%s%nWeight:%.2f%nReps:%d%n=-=-=-=%n%s", mExercise, mWeight, mReps, currentInfo);
 
         binding.logDisplayTextView.setText(newDisplay);
+        Log.i(TAG, repository.getAllLogs().toString());
     }
 
     // Updates variables for logging from user input
