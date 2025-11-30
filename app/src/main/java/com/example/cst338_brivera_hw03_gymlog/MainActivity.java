@@ -4,18 +4,15 @@ import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.example.cst338_brivera_hw03_gymlog.databinding.ActivityMainBinding;
-
 import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
 
     ActivityMainBinding binding;
-    private static final String TAG = "BR_GYMLOG" ;
+    public static final String TAG = "BR_GYMLOG" ;
     String mExercise = "";
     double mWeight = 0.0;
     int mReps = 0;
@@ -26,8 +23,10 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        // Sets scrolling movement for log
         binding.logDisplayTextView.setMovementMethod(new ScrollingMovementMethod());
 
+        // Log button OnClick listener fetches information to be logged and displays it
         binding.logButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -37,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    // Updates the log displayed
     private void updateDisplay() {
         String currentInfo = binding.logDisplayTextView.getText().toString();
         String newDisplay = String.format(Locale.ENGLISH,"Exercise:%s%nWeight:%.2f%nReps:%d%n=-=-=-=%n%s", mExercise, mWeight, mReps, currentInfo);
@@ -44,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
         binding.logDisplayTextView.setText(newDisplay);
     }
 
+    // Updates variables for logging from user input
     private void getInformationFromDisplay() {
         mExercise = binding.exerciseInputEditText.getText().toString();
 
