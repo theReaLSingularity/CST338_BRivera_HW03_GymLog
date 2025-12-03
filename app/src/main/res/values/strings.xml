@@ -12,4 +12,8 @@
     <string name="username">Username</string>
     <string name="password">Password</string>
     <string name="log_in">Log In</string>
+    <string name="log_outs1">Log In</string>
+    <string name="log_outs11">Log In</string>
+    <string name="log_outs2">Log In</string>
+    <string name="log_outs22">Log In</string>
 </resources>
