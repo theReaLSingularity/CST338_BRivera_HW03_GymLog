@@ -5,6 +5,7 @@ import android.util.Log;
 
 import com.example.cst338_brivera_hw03_gymlog.database.entities.GymLog;
 import com.example.cst338_brivera_hw03_gymlog.MainActivity;
+import com.example.cst338_brivera_hw03_gymlog.database.entities.User;
 
 import java.util.ArrayList;
 import java.util.concurrent.Callable;
@@ -12,13 +13,15 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
 public class GymLogRepository {
-    private GymLogDAO gymLogDAO;
+    private final GymLogDAO gymLogDAO;
+    private UserDAO userDAO;
     private ArrayList<GymLog> allLogs;
     private static GymLogRepository repository;
 
     private GymLogRepository(Application application) {
         GymLogDatabase db = GymLogDatabase.getDatabase(application);
         this.gymLogDAO = db.gymLogDAO();
+        this.userDAO = db.userDAO();
         this.allLogs = (ArrayList<GymLog>) this.gymLogDAO.getAllRecords();
     }
 
@@ -64,6 +67,13 @@ public class GymLogRepository {
         GymLogDatabase.databaseWriteExecutor.execute(()->
         {
             gymLogDAO.insert(gymLog);
+        });
+    }
+
+    public void insertUser(User... user) {
+        GymLogDatabase.databaseWriteExecutor.execute(()->
+        {
+            userDAO.insert(user);
         });
     }
 }
