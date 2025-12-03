@@ -9,7 +9,7 @@
     
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="150dip"
+        android:layout_height="160dip"
         android:id="@+id/titleLoginTextView"
         android:textSize="42sp"
         android:text="@string/login_welcome"
